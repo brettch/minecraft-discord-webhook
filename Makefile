@@ -1,5 +1,5 @@
 build:
-	docker build . -t saadbruno/minecraft-discord-webhook
+	podman build . -t ghcr.io/brettch/minecraft-discord-webhook
 
 push:
-	docker push saadbruno/minecraft-discord-webhook:latest
+	podman push ghcr.io/brettch/minecraft-discord-webhook:latest
