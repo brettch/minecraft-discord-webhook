@@ -99,10 +99,12 @@ tail -n 0 -F $SERVERLOG/latest.log | while read LINE; do
     # death messages, based on https://minecraft.gamepedia.com/Death_messages
     *was*by* | *was\ burnt* | *whilst\ trying\ to\ escape* | *whilst\ fighting* | *danger\ zone* | *bang* | *death | *lava* | *flames | *fell* | *fell\ while* | *drowned* | *suffocated* | *blew\ up | *kinetic\ energy | *hit\ the\ ground | *didn\'t\ want\ to\ live* | *withered\ away*)
         PLAYER=$(echo "$LINE" | grep -o ": .*" | awk '{print $2}')
-        MESSAGE=$(echo "$LINE" | grep -o ": .*" | cut -c 3-)
-        source $LANGFILE
-        echo "$PLAYER died. Sending webhook..."
-        webhook_compact "$MESSAGE" 10366780 "https://minotar.net/helm/$PLAYER?v=$CACHE"
+        if [ "$PLAYER" != "Villager" ]; then
+            MESSAGE=$(echo "$LINE" | grep -o ": .*" | cut -c 3-)
+            source $LANGFILE
+            echo "$PLAYER died. Sending webhook..."
+            webhook_compact "$MESSAGE" 10366780 "https://minotar.net/helm/$PLAYER?v=$CACHE"
+        fi
         ;;
 
     # advancements
