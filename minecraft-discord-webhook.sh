@@ -74,9 +74,6 @@ function webhook_compact() {
             }' $WEBHOOK_URL
 }
 
-# send a message that the service has started
-webhook_compact "$0 started monitoring $SERVERLOG/latest.log" 9737364 "$AVATAR"
-
 # actual loop with parsing of the log
 tail -n 0 -F $SERVERLOG/latest.log | while read LINE; do
     case $LINE in
